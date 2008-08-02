@@ -1,41 +1,4 @@
 class CommentsController < ApplicationController
-  # GET /comments
-  # GET /comments.xml
-  def index
-    @comments = Comment.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @comments }
-    end
-  end
-
-  # GET /comments/1
-  # GET /comments/1.xml
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
-
-  # GET /comments/new
-  # GET /comments/new.xml
-  def new
-    @comment = Comment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
-
-  # GET /comments/1/edit
-  def edit
-    @comment = Comment.find(params[:id])
-  end
 
   # POST /comments
   # POST /comments.xml
@@ -125,15 +88,24 @@ class CommentsController < ApplicationController
     end
   end 
 
-  # DELETE /comments/1
-  # DELETE /comments/1.xml
-  def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(comments_url) }
-      format.xml  { head :ok }
+  
+  def subscribe
+    email = params["sub_email"]
+    if(email.include?("@"))
+      noti_found =  Notification.find(:first, :conditions => { :email => @comment.email, :book_id  => @comment.book_id  } )
+      if( noti_found == nil  ) #no dupes
+        not_email = Notification.new()
+        not_email.email = email
+        not_email.book_id = params["book_id"].to_i
+        not_email.save
+      end
+      respond_to do |format|
+        format.html { render :action => "success_subscribe.html.erb", :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { render :action => "failure_subscribe.html.erb", :layout => false}
+      end
     end
   end
 end

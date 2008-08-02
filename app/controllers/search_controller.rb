@@ -8,13 +8,16 @@ include Amazon::AWS::Search
 
 class SearchController < ApplicationController
   def index
-      puts "params #{params.inspect}"
-      book = find_createbook( params["searchfield"])
-      if( book )
-        redirect_to :controller => "books", :action => "view", :id => book.id
-      else
-        render :text => "<h1> Book not Found </h1>"
+      begin
+        puts "params #{params.inspect}"
+        book = find_createbook( params["searchfield"])
+        if( book )
+          redirect_to :controller => "books", :action => "show", :id => book.id
+          return
+        end
+      rescue
       end
+      render :action => "no_books_found"
   end
 
   def find_createbook(bookname)

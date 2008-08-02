@@ -1,10 +1,9 @@
 class BooksController < ApplicationController
-  active_scaffold :book
 
 
   # GET /books/1
   # GET /books/1.xml
-  def view
+  def show
     @book = Book.find(params[:id])
     @book.views = @book.views + 1
     @book.save #Not efficent !
