@@ -42,6 +42,18 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
 
+    if(params["commenting_subscribe_checkbox"] == "on")
+      noti_found =  Notification.find(:first, :conditions => { :email => @comment.email, :book_id  => @comment.book_id  } )
+      if( noti_found == nil  )
+        not_email = Notification.new()
+        not_email.email = @comment.email
+        not_email.book_id = @comment.book_id
+        not_email.save
+      else
+        puts "already saved notifications"
+      end
+    end
+
     respond_to do |format|
       if @comment.save
         @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1
@@ -61,10 +73,18 @@ class CommentsController < ApplicationController
     @comments = Comment.paginate_by_book_id params[:id], :page => params[:p]
     @next_page = @comments.next_page.to_s
     @prev_page = @comments.next_page.to_s
+    if( params["spoilers"] != nil)
+      @allow_spoilers = true
+    end
     respond_to do |format|
       format.js{ render :action=>'bookcommentspagination' }
     end
   end
+
+  def RenderComment
+    @comment = Comment.find(params[:id])
+    render :partial => "comment"
+   end 
   
   # PUT /comments/1
   # PUT /comments/1.xml
@@ -82,6 +102,28 @@ class CommentsController < ApplicationController
       end
     end
   end
+
+  def recommend 
+    begin
+      @comment = Comment.find(params[:id])
+      @comment.recommendcount = @comment.recommendcount + 1
+      @comment.save
+      render :text => @comment.recommendcount
+    rescue 
+       render :text =>"failure" 
+    end
+  end 
+  
+  def spoiler
+    begin
+      @comment = Comment.find(params[:id])
+      @comment.spoilercount = @comment.spoilercount + 1
+      @comment.save
+      render :text => @comment.spoilercount 
+    rescue 
+       render :text =>"failure" 
+    end
+  end 
 
   # DELETE /comments/1
   # DELETE /comments/1.xml

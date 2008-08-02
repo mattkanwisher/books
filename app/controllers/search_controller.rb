@@ -51,6 +51,8 @@ class SearchController < ApplicationController
     asin = resp.item_search_response[0].items[0].item[0].asin.to_s
     puts "asin- #{asin}"
 
+    page_url = items[0].detail_page_url.to_s
+  
 
     il = ItemLookup.new( 'ASIN', { 'ItemId' => asin,
                                     'MerchantId' => 'Amazon' } )
@@ -70,6 +72,7 @@ class SearchController < ApplicationController
     book.title = title
     book.image_url = image_url
     book.author = author
+    book.amz_purchase_url = page_url
     book.save
     return book
   end

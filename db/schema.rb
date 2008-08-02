@@ -15,16 +15,29 @@ ActiveRecord::Schema.define(:version => 20080719210956) do
     t.string "title"
     t.string "asin"
     t.string "image_url"
+    t.string "amz_purchase_url"
     t.string "author"
+    t.integer "views", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  
+  
+  create_table "notifications", :force => true do |t|
+    t.string "email"
+    t.integer "book_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   
   create_table "comments", :force => true do |t|
     t.integer   "book_id"
     t.string   "body"
     t.string   "name"
     t.string   "email"  
+    t.integer "spoilercount", :default => 0
+    t.integer "recommendcount", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

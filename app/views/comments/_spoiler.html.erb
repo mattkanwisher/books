@@ -1,0 +1,22 @@
+
+<div class="column span-13 first last clearfix thread_item" id="comment_spoiler_<%=@comment.id%>">
+	<div class="column span-9 first">
+		<div class="column span-9 first last comment spoiler_comment" id="comment_ID">
+			<p>This comment has been marked as a spoiler.<br/><%=
+			link_to_remote "Read it anyway",
+			:url => { :controller => "comments", :action => "RenderComment" , :id => @comment.id },
+			:update => 'comment_spoiler_' + @comment.id.to_s 
+			%>?</p>
+			<img class="tl" src="/images/brown_corner_tl.jpg" alt=""/>
+			<img class="tr" src="/images/brown_corner_tr.jpg" alt=""/>
+			<img class="br" src="/images/brown_corner_br.jpg" alt=""/>
+			<img class="bl" src="/images/brown_corner_bl.jpg" alt=""/>
+		</div>
+		<span class="caption small grey">
+		Recommended
+		by <strong><%=@comment.recommendcount %></strong> Readers</span>
+	</div>
+	<div class="column span-4 last byline">
+		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at %></i></p>
+	</div>	
+</div>

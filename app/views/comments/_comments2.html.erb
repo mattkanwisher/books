@@ -1,0 +1,44 @@
+<div class="column span-13 last" id="comments">
+
+<% @comments.each do |@comment| %>			
+	
+	<% if @comment.spoilercount < 3 || @allow_spoilers == true %>
+		<%= render :partial => "comments/comment", :object => @comment %>
+	<% else %>
+		<%= render :partial => "comments/spoiler", :object => @comment %>
+	<% end %> 
+	
+<% end %>
+
+<!-- PAGINATION -->
+
+	<div id="pagination" class="column span-9 append-4 first last">
+		<% if @comments.previous_page != nil %>
+			<div id="" class="pagination_link">
+ 				<% puts @comments.inspect %>
+				<%=
+				link_to_remote "Older Comments &rarr;",
+				:url => "/comments/ViewBookComments/" + @comments[0].book_id.to_s + "?p=#{@comments.previous_page}" ,
+				:classname => "pagination_link float_right"
+				%>
+
+				<img class="br" src="/images/red_corner_br.jpg" alt=""/>
+				<img class="bl" src="/images/red_corner_bl.jpg" alt=""/>
+			</div>
+		<% end %> 
+		<% if @comments.next_page != nil %>
+			<div id="" class="pagination_link">
+				<%=
+				link_to_remote "&larr; Newer Comments",
+				:url => "/comments/ViewBookComments/" + @comments[0].book_id.to_s + "?p=#{@comments.next_page}" ,
+				:classname => "pagination_link float_right"
+				%>
+				<img class="br" src="/images/red_corner_br.jpg" alt=""/>
+				<img class="bl" src="/images/red_corner_bl.jpg" alt=""/>
+			</div>
+		<% end %>
+	</div>
+
+	
+	
+</div>

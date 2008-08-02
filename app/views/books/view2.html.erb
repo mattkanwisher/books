@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+	
+	<title>Book Talk - <%=@book.title %></title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	
+	<meta name="keywords" content="books">	
+	<meta name="description" content="Book rooms. What are you reading?">
+
+	<meta name="Saha and Matt" content="BookRooms">
+
+	<link rel="stylesheet" type="text/css" href="/lib/reset.css" />
+	<link rel="stylesheet" type="text/css" href="/lib/grid.css" />
+	<link rel="stylesheet" type="text/css" href="/lib/typography.css" />
+	<link rel="stylesheet" type="text/css" href="/homebrew.css" />
+
+
+</head>
+
+<body>
+
+
+
+	<div class="container" style="padding-top: 18px; padding-bottom: 0px;">
+		
+		<div class="column span-7 first bottomend-1" id="Logo">
+			<h2 class="plain">Book Talk</h2>
+		</div>
+		
+		<div class="column span-13 last">
+			<h2 class="room_shoutout">Reading <i><%=@book.title %></i>? Join the conversation!</h2>
+		</div>
+		
+		<div class="column span-6 first" id="left_column">
+			<div class="column span-6 first last white">
+				<h1><%=@book.title %></h1>
+				<p>by <%=@book.author %></p>
+				<div class="column span-2 first" id="book_cover">
+					<img class="float_left" id="book_cover_image" src="<%=@book.image_url %>">
+				</div>
+			
+				<div class="column span-4 last" id="book_info">				
+			
+					<ul>
+						<li class="clearfix small grey">Viewed <%=@book.views %> times</li>
+					
+						<li class="clearfix">
+							<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
+							<div class="column first last" id="comment_follow_subscription" style="display: none;">
+								 <% form_remote_tag :url => '/books/subscribe', :update  => "comment_follow_subscription" do -%>
+									<input type="hidden" id="book_id" name="book_id" value="<%=@book.id %>"
+									<input type="text" id="sub_email" name="sub_email" class="float_left info_subscribe_form grey" value="Your Email Address"></input>							 
+									<%= submit_tag   'subscribe',  :class => "float_left info_subscribe_form"  %>
+								 <% end -%>
+							</div>
+						</li>
+						<li class="clearfix">
+							<%=
+							link_to_remote "Reveal all spoiler comments",
+							:url => "/comments/ViewBookComments/" + @book.id.to_s + "?p=#{@comments.current_page}&spoilers=t"
+							%>
+							</li>
+						<div class="clear"></div>
+						<li class="clearfix"><a href="<%= @book.amz_purchase_url %>" id="amazon_link">at Amazon</a></li>
+						<li class="clearfix">
+							<a href="#">Email this page to a friend</a>
+							<div class="column first last" id="email_friend_form" style="display: none;">
+								<form>
+									<label class="small grey clearfix">Your Name</label>
+									<input type="text"></input>
+									<label class="small grey clearfix">Your Email</label>
+									<input type="text"></input>
+									<label class="small grey clearfix">Friends Email</label>
+									<input type="text"></input>
+									<input type="submit" value="Send Email"></input>
+								</form>
+							</div>
+						</li>
+					
+					
+					</ul>
+			
+				</div>
+			
+			</div>
+					<img class="tl" src="/images/book_corner_tl.jpg" alt=""/>
+					<img class="tr" src="/images/book_corner_tr.jpg" alt=""/>
+					<img class="br" src="/images/book_corner_br.jpg" alt=""/>
+					<img class="bl" src="/images/book_corner_bl.jpg" alt=""/>
+		</div>
+		
+		<!-- COMMENTS -->
+		
+		<!-- EMPTY ROOM SHOUTOUT -->
+		<% if @comments.length < 1%>
+			<%= render :partial => "comments/empty_comments", :object => @book %>
+        <% else %>		
+			<%= render :partial => "comments/comments2", :object => @comments %>
+		<% end %>
+
+		<!-- COMMENTING FORM -->	
+		
+		<div id="comment_form" class="column span-10 first clearfix">
+			<h3 class="plain">Post a thoughtful comment, people will love you for it!</h3>
+			<% remote_form_for(Comment.new) do |f| %>
+				<label class="float_left textfield">Your Name</label><%= f.text_field :name %>
+			 
+				<div class="clear"></div>
+				<label class="float_left textfield">Your Email</label><%= f.text_field :email %>
+				<div class="clear"></div>
+				<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
+				<div class="clear"></div>
+				<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox" name="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
+				<div class="clear"></div>
+				<%= f.hidden_field :book_id, :value => @book.id%>
+
+				<%= submit_tag 'Post Comment' %>
+			<% end %>
+			<img class="tl" src="/images/yellow_corner_tl.jpg" alt=""/>
+			<img class="tr" src="/images/yellow_corner_tr.jpg" alt=""/>
+			<img class="br" src="/images/yellow_corner_br.jpg" alt=""/>
+			<img class="bl" src="/images/yellow_corner_bl.jpg" alt=""/>
+		</div>
+
+			
+			
+		</div>
+		<div id="footer" class="column span-20">
+			<p class="small grey">Created by <a href="http://sahadeva.com/">Sahadeva Hammari</a> and Matt Campbell. We hope you like it.<br/>All rights are reserved. Contact us at <a href="mailto:talk@readingrooms.com">talk@readingrooms.com</a> -- we like email.</p>
+		</div>
+	</div>	
+</body>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="/assets/js/validation.js"></script>
+</html>

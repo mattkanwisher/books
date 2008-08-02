@@ -1,0 +1,7 @@
+dev_token = 'TEST'
+associate = 'hyperworksnu-20'
+locale = 'us'
+email = 'webmaster@hyperworks.nu'
+password = 'TEST'
+cache = false
+key_id = '06A7QJAAC2VP2H78VSG2'

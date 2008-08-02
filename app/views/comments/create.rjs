@@ -1,2 +1,2 @@
-page.replace 'comments_holder',{:partial=>'comments', :object=>@comments}
+page.replace 'comments',{:partial=>'comments2', :object=>@comments}
 page.replace 'comment_form',{:partial=>'thanks', :object=>@comment}

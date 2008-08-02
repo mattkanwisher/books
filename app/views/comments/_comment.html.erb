@@ -1,0 +1,41 @@
+<div class="column span-13 first last clearfix thread_item" id="comment_<%= comment.id %>">
+	<div class="column span-9 first">
+		<div class="column span-9 first last comment">
+			<p class="comment_text"><%=comment.body %></p>
+			<img class="tl" src="/images/book_corner_tl.jpg" alt=""/>
+			<img class="tr" src="/images/book_corner_tr.jpg" alt=""/>
+			<img class="br" src="/images/book_corner_br.jpg" alt=""/>
+			<img class="bl" src="/images/book_corner_bl.jpg" alt=""/>
+		
+		</div>
+
+		<div id="recommendation_1" class="reccomendation clearfix">
+			<%=
+			link_to_remote "Recommend",
+			:url => { :controller => "comments", :action => "recommend" , :id => comment.id },
+			:update => 'comment_' + comment.id.to_s + '_recommend'
+			%>
+			<img class="br" src="/images/rec_corner_br.jpg" alt=""/>
+			<img class="bl" src="/images/rec_corner_bl.jpg" alt=""/>
+
+		</div>
+
+			<span class="caption small grey">
+			Recommended
+			by <strong><span id="comment_<%=comment.id%>_recommend"><%=comment.recommendcount %></span></strong> Readers</span>
+			<span class="small spoiler_link">
+				<%=
+				link_to_remote "Mark as Spoiler",
+				:url => { :controller => "comments", :action => "spoiler" , :id => comment.id },
+				:update => 'comment_' + comment.id.to_s + '_spoiler',
+				:class => "red"
+				%>
+				 <span id="comment_<%=comment.id%>_spoiler"></span>
+			</span>
+
+	</div>
+	<div class="column span-4 last byline">
+		<p>by <%=comment.name %><br/><span class="small grey"><i><%=comment.created_at %></i></p>
+	
+	</div>	
+</div>
