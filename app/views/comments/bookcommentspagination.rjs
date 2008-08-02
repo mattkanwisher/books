@@ -1,0 +1,1 @@
+page.replace 'comments_holder',{:partial=>'comments', :object=>@comments}

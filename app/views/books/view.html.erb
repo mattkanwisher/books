@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+	
+	<title>Book Talk - <%=@book.title %></title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	
+	<meta name="keywords" content="books">	
+	<meta name="description" content="Book rooms. What are you reading?">
+
+	<meta name="Saha and Matt" content="BookRooms">
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/reset.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/grid.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/typography.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/homebrew.css" />
+
+
+</head>
+
+<body>
+	
+	<div class="container" style="padding-top: 18px; padding-bottom: 56px;">
+		
+		<div class="column span-7 first" id="Logo">
+			<h2 class="plain">Book Talk</h2>
+		</div>
+		
+		<div class="column span-13 last">
+			<h2 class="room_shoutout">Reading <i><%=@book.title %></i>? Join the conversation!</h2>
+		</div>
+		
+		<div class="column span-6 first">
+			<div class="column span-2 first">
+			<img class="float_left" id="book_cover_image" src="<%=@book.image_url %>">
+			</div>
+			
+			<div class="column span-4 last" id="book_info">				
+				<h1><%=@book.title %></h1>
+				<p><%=@book.author %></p>
+				<ul>
+					<li class="clearfix">
+						<label class="float_left small grey clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
+						<div class="column first last" id="comment_follow_subscription" style="display: none;">
+							<input type="text" class="float_left info_subscribe_form grey" value="Your Email Address"></input>
+							<input type="submit" class="float_left info_subscribe_form" value=" Subscribe "></input>
+						</div>
+					</li>
+					<li class="clearfix"><a href="#">Reveal all spoiler comments</a></li>
+					<li class="clearfix"><a href="#">Buy at Amazon</a></li>
+					
+				</ul>
+			
+			</div>
+		</div>
+		
+		<!-- COMMENTS -->
+		
+		<%= render :partial => "comments/comments", :object => @comments %>
+			
+		
+		<!-- COMMENTING FORM -->	
+		
+		<div id="comment_form" class="column span-10 first clearfix">
+			<h3 class="plain">Post a thoughtful comment, people will love you for it!</h3>
+			<% remote_form_for(Comment.new) do |f| %>
+				<label class="float_left">Your Name</label><%= f.text_field :name %>
+			 
+				<div class="clear"></div>
+				<label class="float_left">Your Email</label><%= f.text_field :email %>
+				<div class="clear"></div>
+				<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
+				<div class="clear"></div>
+				<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
+				<div class="clear"></div>
+				<%= f.hidden_field :book_id, :value => @book.id%>
+
+				<%= submit_tag 'Post Comment' %>
+			<% end %>
+		</div>
+		
+		
+	</div>	
+</body>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="/assets/js/validation.js"></script>
+</html>
