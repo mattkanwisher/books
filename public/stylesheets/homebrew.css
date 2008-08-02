@@ -59,7 +59,7 @@ div#book_info { padding-top: 7px; background: #fff; width: 182px; }
 		
 		div#book_info input.info_subscribe_form { margin: 4px 0 4px 19px; }
 		
-		a#amazon_link { background: #ffffff url('images/buy_now.gif') no-repeat top left; padding: 3px 0 0 82px; height: 19px; float: left; }
+		a#amazon_link { background: #ffffff url('/images/buy_now.gif') no-repeat top left; padding: 3px 0 0 82px; height: 19px; float: left; }
 	
 		div#book_info label { width: 189px; }
 	
