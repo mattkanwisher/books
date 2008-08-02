@@ -7,7 +7,7 @@
 	<title>Book Talk - <%=@book.title %></title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	
-	<meta name="keywords" content="books">	
+	<meta name="keywords" content="books, reading, reading rooms, book talk, book discussion, book discussions, book chat, reading chat, book club, book clumbs">	
 	<meta name="description" content="Book rooms. What are you reading?">
 
 	<meta name="Saha and Matt" content="BookRooms">
@@ -15,14 +15,11 @@
 	<link rel="stylesheet" type="text/css" href="/lib/reset.css" />
 	<link rel="stylesheet" type="text/css" href="/lib/grid.css" />
 	<link rel="stylesheet" type="text/css" href="/lib/typography.css" />
-	<link rel="stylesheet" type="text/css" href="/homebrew.css" />
-
+	<link rel="stylesheet" type="text/css" href="/lib/homebrew.css" />
 
 </head>
 
 <body>
-
-
 
 	<div class="container" style="padding-top: 18px; padding-bottom: 0px;">
 		
@@ -30,9 +27,13 @@
 			<h2 class="plain">Book Talk</h2>
 		</div>
 		
-		<div class="column span-13 last">
-			<h2 class="room_shoutout">Reading <i><%=@book.title %></i>? Join the conversation!</h2>
-		</div>
+		<% if @comments.length > 0%>
+			<div class="column span-13 last">
+				<h2 class="room_shoutout">Reading <i><%=@book.title %></i>? Join the conversation!</h2>
+			</div>
+		<% end %>
+		
+		<div class="clear"></div>
 		
 		<div class="column span-6 first" id="left_column">
 			<div class="column span-6 first last white">
@@ -94,42 +95,42 @@
 		
 		<!-- COMMENTS -->
 		
-		<!-- EMPTY ROOM SHOUTOUT -->
-		<% if @comments.length < 1%>
-			<%= render :partial => "comments/empty_comments", :object => @book %>
-        <% else %>		
-			<%= render :partial => "comments/comments2", :object => @comments %>
-		<% end %>
-
-		<!-- COMMENTING FORM -->	
+		<div class="column span-13 last clearfix">
 		
-		<div id="comment_form" class="column span-10 first clearfix">
-			<h3 class="plain">Post a thoughtful comment, people will love you for it!</h3>
-			<% remote_form_for(Comment.new) do |f| %>
-				<label class="float_left textfield">Your Name</label><%= f.text_field :name %>
-			 
-				<div class="clear"></div>
-				<label class="float_left textfield">Your Email</label><%= f.text_field :email %>
-				<div class="clear"></div>
-				<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
-				<div class="clear"></div>
-				<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox" name="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
-				<div class="clear"></div>
-				<%= f.hidden_field :book_id, :value => @book.id%>
-
-				<%= submit_tag 'Post Comment' %>
+			<!-- EMPTY ROOM SHOUTOUT -->
+			<% if @comments.length < 1%>
+				<%= render :partial => "comments/empty_comments", :object => @book %>
+	        <% else %>		
+				<%= render :partial => "comments/comments2", :object => @comments %>
 			<% end %>
-			<img class="tl" src="/images/yellow_corner_tl.jpg" alt=""/>
-			<img class="tr" src="/images/yellow_corner_tr.jpg" alt=""/>
-			<img class="br" src="/images/yellow_corner_br.jpg" alt=""/>
-			<img class="bl" src="/images/yellow_corner_bl.jpg" alt=""/>
-		</div>
 
-			
-			
+			<!-- COMMENTING FORM -->	
+		
+			<div id="comment_form" class="column span-10 first clearfix">
+				<h3 class="plain">Post a thoughtful comment, people will love you for it!</h3>
+				<% remote_form_for(Comment.new) do |f| %>
+					<label class="float_left textfield">Your Name</label><%= f.text_field :name %>
+			 
+					<div class="clear"></div>
+					<label class="float_left textfield">Your Email</label><%= f.text_field :email %>
+					<div class="clear"></div>
+					<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
+					<div class="clear"></div>
+					<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox" name="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
+					<div class="clear"></div>
+					<%= f.hidden_field :book_id, :value => @book.id%>
+
+					<%= submit_tag 'Post Comment', :class => "submit" %>
+				
+				<% end %>
+				<img class="tl" src="/images/yellow_corner_tl.jpg" alt=""/>
+				<img class="tr" src="/images/yellow_corner_tr.jpg" alt=""/>
+				<img class="br" src="/images/yellow_corner_br.jpg" alt=""/>
+				<img class="bl" src="/images/yellow_corner_bl.jpg" alt=""/>
+			</div>
 		</div>
-		<div id="footer" class="column span-20">
-			<p class="small grey">Created by <a href="http://sahadeva.com/">Sahadeva Hammari</a> and Matt Campbell. We hope you like it.<br/>All rights are reserved. Contact us at <a href="mailto:talk@readingrooms.com">talk@readingrooms.com</a> -- we like email.</p>
+		<div id="footer" class="column span-13 prepend-7">
+			<p class="small grey"><strong><a href="/">BookReadinRoom</a></strong> was created by <a href="http://sahadeva.com/">Sahadeva Hammari</a> and Matt Campbell over a few weekends at a Manhattan cafe.<br/>We hope you like it. Please email any feedback to <a href="mailto:talk@readingrooms.com">talk@readingrooms.com</a>. All rights are reserved.</p>
 		</div>
 	</div>	
 </body>
