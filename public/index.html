@@ -1,7 +1,49 @@
-<html>
-<h1>Book's I'm reading</h1>
-<form action="/search" method="post">
-	<input type="text" name="searchfield" id="searchfield">
-	<input type="submit">
-</form>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+	
+	<title>Book Talk</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	
+	<meta name="keywords" content="books">	
+	<meta name="description" content="Book rooms. What are you reading?">
+
+	<meta name="Saha and Matt" content="BookRooms">
+
+	<link rel="stylesheet" type="text/css" href="lib/reset.css" />
+	<link rel="stylesheet" type="text/css" href="lib/grid.css" />
+	<link rel="stylesheet" type="text/css" href="lib/typography.css" />
+	<link rel="stylesheet" type="text/css" href="homebrew.css" />
+
+
+</head>
+
+<body>
+	<div class="container" style="margin: 0 auto; width: 588px;">
+		<div id="SearchPage" class="column span-12 toppend-4">
+		
+			<div id="search_form" class="column span-10 first toppend-2 bottomend-2">
+				<form action="/search" method="post">
+					<center>
+						<h1 class="plain">What are you reading?</h1>
+						
+						<input type="text" id="searchfield" name="searchfield" value=""></input><br/>
+						<input type="submit" value=" Find Book " id="search_button"></input>
+					</center>
+				</form>
+					<img class="tl" src="images/book_corner_tl.jpg" alt=""/>
+					<img class="tr" src="images/book_corner_tr.jpg" alt=""/>
+					<img class="br" src="images/book_corner_br.jpg" alt=""/>
+					<img class="bl" src="images/book_corner_bl.jpg" alt=""/>
+			</div>
+			<div id="service_description" class="column span-12 first last">
+				<center>
+					<h4>Ever wonder how many people in the world are reading<br/>the same book that you are, <i>right now?</i> <br/><br/>Search for the book you're reading and find out.</h4>
+				</center>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
