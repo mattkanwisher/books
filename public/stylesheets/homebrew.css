@@ -4,20 +4,51 @@
 
 .grey { color: #666; }
 .red { color: #D9544E; }
+.white { background: #ffffff; }
 .small { font-size: 11px; }
 .plain { font-weight: normal; }
+.clean { padding-left: 0; padding-right: 0; }
+.no_bottom_margin { margin-bottom: 0; }
 
-div#Logo { margin-bottom: 18px; }
+div#Logo { }
 
-	div#Logo h2 { font-weight: bold; }
+	div#Logo h2 { font-family: georgia; }
+	
+		div#Logo h2 span { font-size: 9px; font-family: "Lucida Grande",Verdana,Geneva,Arial,sans-serif;}
+	
+/* SEARCH PAGE */
+
+	div#search_form { background: #D8F0F0; margin: 0 0 64px 49px; padding-top: 9px; padding-bottom: 29px; position: relative; }
+	
+		div#search_form h1 { font-style: italic; color: #45332F; font-size: 28px;  }
+	
+		div#search_form input#index_search_field { font-size: 21px; padding: 2px; width: 360px; margin-bottom: 18px; }
+		
+		div#search_form input#search_button { width: 130px; }
+		
+	div#service_description { border-top: 1px dotted #ccc; }
+		
+		div#service_description h4 { font-size: 12px; line-height: 18px; color: #555; font-weight: normal;  }
+	
+		div#service_description img { width: 91px; }
+		
+/* ROOM PAGE */ 
 
 h2.room_shoutout { font-family: georgia, times, serif; font-weight: normal; color: #555; margin-top: 18px;}
 
-img#book_cover_image { width: 90px; margin: 7px 0 0px 0px; }
+div#left_column_wrapper { width: 307px; margin-right: 40px; }
 
-div#book_info { padding-top: 7px; }
+div#left_column { background: #D8F0F0; padding: 10px; position: relative; }
 
-	div#book_info h1 { margin-bottom: 2px; font-size: 21px; font-weight: normal; font-family: arial, helvetica; }
+	div#left_column h1 { margin: 11px 0 2px 9px; font-size: 21px; font-weight: normal; font-family: georgia; padding: 0;}
+
+	div#left_column p { margin: 0 0 2px 9px; padding: 0; }
+
+div#book_cover { margin-right: 0; padding: 7px 7px 7px 0px;}
+
+	img#book_cover_image { width: 88px; margin: 0px 0 0px 9px; }
+
+div#book_info { padding-top: 7px; background: #fff; width: 182px; }
 	
 	div#book_info ul { margin: 0 0 12px 5px; }
 	
@@ -27,17 +58,31 @@ div#book_info { padding-top: 7px; }
 		div#book_info input#info_subscribe_checkbox { margin: 0 5px 0 0; }
 		
 		div#book_info input.info_subscribe_form { margin: 4px 0 4px 19px; }
+		
+		a#amazon_link { background: #ffffff url('images/buy_now.gif') no-repeat top left; padding: 3px 0 0 82px; height: 19px; float: left; }
 	
-div#comments { margin-left: 49px; }
+		div#book_info label { width: 189px; }
+	
+	div#email_friend_form { clear: both; width: 260px; padding: 5px 5px 8px 5px; margin: 9px 0 -7px -95px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+	
+		div#email_friend_form label { margin-top: 5px; }
+		
+		div#email_friend_form textarea { margin-bottom: 7px; width: 253px; }
+		
+		div#email_friend_form p { background: #ffffcc; margin: 0 0 8px 0; padding: 3px; width: 249px;}
+		
+		div#email_friend_form h2 { margin-top: 19px; }
+	
+div#comments {  }
 
-	div.thread_item { padding-top: 7px; padding-bottom: 18px; }
+	div.thread_item { padding-bottom: 25px; }
 	
 	div.comment { background: #D8F0F0; padding: 7px 5px 8px 5px; width: 424px; position:relative; }
 	
-		div#comments img.tl { left:0px; position:absolute; top:0px; z-index:1; }
-		div#comments img.tr { right:0px; position:absolute; top:0px; z-index:1; }
-		div#comments img.bl { left:0px; position:absolute; bottom:0px; z-index:1; }
-		div#comments img.br { right:0px; position:absolute; bottom:0px; z-index:1; }
+		img.tl { left:0px; position:absolute; top:0px; z-index:1; }
+		img.tr { right:0px; position:absolute; top:0px; z-index:1; }
+		img.bl { left:0px; position:absolute; bottom:0px; z-index:1; }
+		img.br { right:0px; position:absolute; bottom:0px; z-index:1; }
 	
 	#comments p.comment_text { font-size: 15px; padding-left: 9px; margin-bottom: 5px; }
 	
@@ -73,11 +118,13 @@ div#comments { margin-left: 49px; }
 	#comments .caption, #comments .spoiler_link { padding-left: 7px; padding-top: 4px; padding-right: 11px; float: left; }
 	#comments .spoiler_link { text-align: right; float: right; }
 	
-	div#pagination { border-top: 1px solid #ccc; margin-top: 18px; }
+	div#pagination { border-top: 1px dotted #ccc; margin-top: 18px; }
 	
-		div#pagination a.pagination_link { padding: 4px 6px 4px 6px; background-color: #D9544E; color: #fff; font-weight: bold; margin: 0 0px 0 5px; }
-	
-	div#comment_form { margin-top: 27px; background: #FFFCDA; padding: 14px 5px 14px 5px; }
+		div.pagination_link { float: right; position: relative; height:16px; padding: 2px 6px 5px 6px; background-color: #D9544E; margin: 0 0px 0 5px; }
+		
+		div.pagination_link a { padding: 3px; color: #fff; }
+		
+	div#comment_form { margin-top: 27px; background: #FFFCDA; padding: 17px 0px 18px 10px; position: relative; }
 	
 		div#comment_form h3 { color: #D93D1A;}
 	
@@ -89,8 +136,13 @@ div#comments { margin-left: 49px; }
 		
 		div#comment_form input.textfield { width: 238px; }
 		
-		div#comment_form textarea { width: 320px; margin-bottom: 13px; }
+		div#comment_form textarea { width: 350px; margin-bottom: 13px; }
 		
 		div#comment_form input.submit { margin-left: 103px; }
+		
+	div#empty_rooms { position: relative; background: #D8F0F0; padding: 7px 5px 8px 5px; width: 588px; }
 	
+		div#empty_rooms h3, div#SearchPage h1 { font-family: georgia; font-weight: normal; font-size: 26px; line-height: 38px; color: #D93D1A; margin: 0; padding: 12px; }
+		
+	#footer { margin-top: 45px; border-top: 1px dotted #ccc; padding-top: 7px; }
 	
