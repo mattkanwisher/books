@@ -89,6 +89,12 @@ class CommentsController < ApplicationController
   end 
 
   
+  def testmail
+    delete_if = lambda {|email| MyMailer.deleteif(email) }
+    MailFetcher.fetch(:delete_if => delete_if, :mailer_methods => [:receive])
+    render :text => "Love", :layout => "false"
+  end
+  
   def subscribe
     email = params["sub_email"]
     book_id =  params["book_id"].to_i

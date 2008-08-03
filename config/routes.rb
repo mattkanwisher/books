@@ -3,7 +3,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
 
-  map.resources :comments
 
   map.resources :books
 

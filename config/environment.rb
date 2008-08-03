@@ -99,4 +99,9 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "admin@bookreadingroom.com",
   :password => "booksadmin123"
 }
+
+MailFetcher.config = { :server => "imap.gmail.com", :username => "admin@bookreadingroom.com", :password => "booksadmin123", :port     => 993 }
+
+MailFetcher.mailer_class = :my_mailer 
+
  
