@@ -56,7 +56,7 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
-  
+  config.action_mailer.delivery_method = :smtp
 
 end
 
@@ -80,3 +80,23 @@ AutoAdmin.config do |admin|
    #admin.save_as = %w(csv)
    admin.theme = :django # Optional; this is the default.
  end
+=begin
+ ActionMailer::Base.server_settings = {
+ :address => "mail.bookreadingroom.com",
+ :port => 25,
+ :domain => "bookreadingroom.com",
+ :authentication => :login,
+ :user_name => "serveradmin@bookreadingroom.com",
+ :password =>⁞ ""
+ }
+=end
+
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :domain => "bookreadingroom.com",
+  :authentication => :plain,
+  :user_name => "admin@bookreadingroom.com",
+  :password => "booksadmin123"
+}
+ 

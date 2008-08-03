@@ -91,14 +91,16 @@ class CommentsController < ApplicationController
   
   def subscribe
     email = params["sub_email"]
+    book_id =  params["book_id"].to_i
     if(email.include?("@"))
-      noti_found =  Notification.find(:first, :conditions => { :email => @comment.email, :book_id  => @comment.book_id  } )
+      noti_found =  Notification.find(:first, :conditions => { :email => email, :book_id  => book_id  } )
       if( noti_found == nil  ) #no dupes
         not_email = Notification.new()
         not_email.email = email
-        not_email.book_id = params["book_id"].to_i
+        not_email.book_id = book_id
         not_email.save
       end
+      
       respond_to do |format|
         format.html { render :action => "success_subscribe.html.erb", :layout => false}
       end
