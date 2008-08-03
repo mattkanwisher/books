@@ -73,7 +73,10 @@ AutoAdmin.config do |admin|
 
    # "Primary Objects" are those for which lists should be directly
    # accessible from the home page.
-   admin.primary_objects = %w(book comment notification)
+   admin.primary_objects = %w(book comment notification user)
+   admin.admin_model = "user"
+   admin.admin_model_id = 1
 
+   #admin.save_as = %w(csv)
    admin.theme = :django # Optional; this is the default.
  end
