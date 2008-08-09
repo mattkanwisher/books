@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     end
     
     Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
-      Notifier.deliver_signup_thanks(notifiy.email)
+      Notifier.deliver_signup_thanks(notifiy.email, @comment)
     end 
     
     respond_to do |format|
@@ -35,6 +35,7 @@ class CommentsController < ApplicationController
       end
     end
   end
+  
 
   def ViewBookComments
     @comments = Comment.paginate_by_book_id params[:id], :page => params[:p]
