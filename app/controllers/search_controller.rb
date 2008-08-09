@@ -12,10 +12,12 @@ class SearchController < ApplicationController
         puts "params #{params.inspect}"
         book = find_createbook( params["searchfield"])
         if( book )
-          redirect_to :controller => "books", :action => "show", :id => book.id
+          redirect_to :controller => "books", :action => "show", :id => book.id, :booktitle => book.url_key
           return
         end
+        puts "book#{book}"
       rescue
+        "puts error"
       end
       render :action => "no_books_found"
   end
@@ -67,16 +69,27 @@ class SearchController < ApplicationController
     author = book.item[0].item_attributes[0].author[0].to_s
 
 
-
+    #debugger
+begin
     image_url = book.item[0].image_sets[0].image_set.large_image.url[0].to_s
-    
+rescue
+    image_url = ""
+end
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
-    book.title = title
+    book.title = slightly_nicer_title(title)
     book.image_url = image_url
     book.author = author
     book.amz_purchase_url = page_url
     book.save
     return book
+  end
+
+  def slightly_nicer_title(title)
+    idx = title.index("(")
+    if(idx != nil)
+      title.slice!(idx, title.length)
+    end
+    title
   end
 end

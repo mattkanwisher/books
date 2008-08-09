@@ -24,7 +24,7 @@ div#Logo { }
 	
 		div#search_form input#index_search_field { font-size: 21px; padding: 2px; width: 360px; margin-bottom: 18px; }
 		
-		div#search_form input#search_button { width: 130px; }
+		div#search_form input#search_button {  }
 		
 	div#service_description { border-top: 1px dotted #ccc; }
 		
@@ -34,15 +34,19 @@ div#Logo { }
 		
 /* ROOM PAGE */ 
 
-h2.room_shoutout { font-family: georgia, times, serif; font-weight: normal; color: #555; margin-top: 18px;}
+h2.room_shoutout { font-family: georgia, times, serif; font-weight: normal; color: #555; }
 
-div#left_column_wrapper { width: 307px;  }
+div#left_column_wrapper { width: 307px; margin-right: 40px;}
 
-div#left_column { background: #D8F0F0; padding: 10px; position: relative; margin-right: 40px; }
+div#left_column { background: #D8F0F0; padding: 10px; position: relative; }
 
-	div#left_column h1 { margin: 11px 0 2px 9px; font-size: 21px; font-weight: normal; font-family: georgia; padding: 0;}
+	div#left_column h1 { margin: 6px 0 2px 9px; font-size: 21px; line-height: 24px; font-weight: normal; font-family: georgia; padding: 0;}
 
 	div#left_column p { margin: 0 0 2px 9px; padding: 0; }
+	
+	div#left_column p#notifications_error_note { margin: 1px 0 1px 19px; }
+	
+	div#comment_follow_success h3 { margin: 9px 0 9px 14px; }
 
 div#book_cover { margin-right: 0; padding: 7px 7px 7px 0px;}
 
@@ -59,9 +63,11 @@ div#book_info { padding-top: 7px; background: #fff; width: 182px; }
 		
 		div#book_info input.info_subscribe_form { margin: 4px 0 4px 19px; }
 		
-		a#amazon_link { background: #ffffff url('images/buy_now.gif') no-repeat top left; padding: 3px 0 0 82px; height: 19px; float: left; }
+		a#amazon_link { background: #ffffff url('/images/buy_now.gif') no-repeat top left; padding: 3px 0 0 82px; height: 19px; float: left; }
 	
 		div#book_info label { width: 189px; }
+		
+		div#book_info ul li#email_notifications { background: #ffffcc; }
 	
 	div#email_friend_form { clear: both; width: 260px; padding: 5px 5px 8px 5px; margin: 9px 0 -7px -95px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
 	

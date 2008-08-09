@@ -16,7 +16,12 @@ class CommentsController < ApplicationController
         puts "already saved notifications"
       end
     end
-
+    
+    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
+      User.TempUserEmail(notifiy.email)
+      Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
+    end 
+    
     respond_to do |format|
       if @comment.save
         @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1
@@ -31,6 +36,7 @@ class CommentsController < ApplicationController
       end
     end
   end
+  
 
   def ViewBookComments
     @comments = Comment.paginate_by_book_id params[:id], :page => params[:p]
@@ -82,7 +88,22 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @comment.spoilercount = @comment.spoilercount + 1
       @comment.save
-      render :text => @comment.spoilercount 
+      @just_marked_as_spoiler = true
+#      render :text => @comment.spoilercount 
+      render :partial => "spoiler"
+    rescue 
+       render :text =>"failure" 
+    end
+  end 
+
+  def unspoil
+    begin
+      @comment = Comment.find(params[:id])
+      @comment.spoilercount = @comment.spoilercount - 1
+      @comment.save
+      @just_marked_as_spoiler = false
+#      render :text => @comment.spoilercount 
+      render :partial => "spoiler"
     rescue 
        render :text =>"failure" 
     end
@@ -94,6 +115,26 @@ class CommentsController < ApplicationController
     MailFetcher.fetch(:delete_if => delete_if, :mailer_methods => [:receive])
     render :text => "Love", :layout => "false"
   end
+  
+  
+=begin  
+  def subscribe
+    email = params["sub_email"]
+    if(email.include?("@"))
+      not_email = Notification.new()
+      not_email.email = email
+      not_email.book_id = params["book_id"].to_i
+      not_email.save
+      respond_to do |format|
+        format.html { render :action => "success_subscribe.html.erb", :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { render :action => "failure_subscribe.html.erb", :layout => false}
+      end
+    end
+  end
+=end
   
   def subscribe
     email = params["sub_email"]

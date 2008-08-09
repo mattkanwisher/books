@@ -1,0 +1,34 @@
+= UrlKey
+
+The UrlKey module creates an unchanging permalink identifier for a model 
+object.
+
+It is like Rick Olson's {PermalinkFu plugin}[http://svn.techno-weenie.net/projects/plugins/permalink_fu/]
+with a couple of changes:
+
+1. URL keys are guaranteed to be unique by appending of a count.
+2. URL keys are only generated on create, so they never change
+
+== Using UrlKey
+
+Install the plugin with:
+
+  script/plugin install svn://rubyforge.org/var/svn/slantwise/url_key/trunk url_key
+
+In your linkable models, include the following:
+
+  class Thingy < ActiveRecord::Base
+    has_url_key :title
+  end
+
+This assumes you have a column called +url_key+ defined in your model. If 
+your field is named differently, you can specify it like this:
+
+  class Thingy < ActiveRecord::Base
+    has_url_key :title, :permalink
+  end
+
+When a record is created, a unique url_key based on the :title column will 
+automatically be created.
+
+Copyright (c) 2007 Slantwise Design. Released under the MIT license.
