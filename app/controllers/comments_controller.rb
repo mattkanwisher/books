@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     end
     
     Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
-      Notifier.deliver_signup_thanks(notifiy.email, @comment)
+      Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
     end 
     
     respond_to do |format|

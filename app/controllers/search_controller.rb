@@ -74,11 +74,19 @@ class SearchController < ApplicationController
     
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
-    book.title = title
+    book.title = slightly_nicer_title(title)
     book.image_url = image_url
     book.author = author
     book.amz_purchase_url = page_url
     book.save
     return book
+  end
+
+  def slightly_nicer_title(tile)
+    idx = title.index("(")
+    if(idx != nil)
+      title.slice!(idx, title.length)
+    end
+    title
   end
 end
