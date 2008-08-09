@@ -90,7 +90,7 @@ class CommentsController < ApplicationController
       @comment.save
       @just_marked_as_spoiler = true
 #      render :text => @comment.spoilercount 
-      render :partial => "comment"
+      render :partial => "spoiler"
     rescue 
        render :text =>"failure" 
     end
@@ -103,7 +103,7 @@ class CommentsController < ApplicationController
       @comment.save
       @just_marked_as_spoiler = false
 #      render :text => @comment.spoilercount 
-      render :partial => "comment"
+      render :partial => "spoiler"
     rescue 
        render :text =>"failure" 
     end
