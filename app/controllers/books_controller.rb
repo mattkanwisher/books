@@ -1,10 +1,8 @@
 class BooksController < ApplicationController
 
 
-  # GET /books/1
-  # GET /books/1.xml
   def show
-    @book = Book.find_by_url_key(params[:id])
+    @book = Book.find(params[:id])
     @book.views = @book.views + 1
     @book.save #Not efficent !
     
@@ -22,24 +20,6 @@ class BooksController < ApplicationController
     end
   end
 
-
-  
-  def subscribe
-    email = params["sub_email"]
-    if(email.include?("@"))
-      not_email = Notification.new()
-      not_email.email = email
-      not_email.book_id = params["book_id"].to_i
-      not_email.save
-      respond_to do |format|
-        format.html { render :action => "success_subscribe.html.erb", :layout => false}
-      end
-    else
-      respond_to do |format|
-        format.html { render :action => "failure_subscribe.html.erb", :layout => false}
-      end
-    end
-  end
   
 
 end

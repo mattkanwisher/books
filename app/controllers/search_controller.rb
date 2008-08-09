@@ -12,7 +12,7 @@ class SearchController < ApplicationController
         puts "params #{params.inspect}"
         book = find_createbook( params["searchfield"])
         if( book )
-          redirect_to :controller => "books", :action => "show", :id => book.url_key
+          redirect_to :controller => "books", :action => "show", :id => book.id, :booktitle => book.url_key
           return
         end
         puts "book#{book}"
@@ -74,8 +74,7 @@ class SearchController < ApplicationController
     
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
-#    book.title = slightly_nicer_title(title)
-    book.title = title
+    book.title = slightly_nicer_title(title)
     book.image_url = image_url
     book.author = author
     book.amz_purchase_url = page_url
@@ -83,7 +82,7 @@ class SearchController < ApplicationController
     return book
   end
 
-  def slightly_nicer_title(tile)
+  def slightly_nicer_title(title)
     idx = title.index("(")
     if(idx != nil)
       title.slice!(idx, title.length)

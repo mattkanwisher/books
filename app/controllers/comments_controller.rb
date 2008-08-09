@@ -100,6 +100,26 @@ class CommentsController < ApplicationController
     render :text => "Love", :layout => "false"
   end
   
+  
+=begin  
+  def subscribe
+    email = params["sub_email"]
+    if(email.include?("@"))
+      not_email = Notification.new()
+      not_email.email = email
+      not_email.book_id = params["book_id"].to_i
+      not_email.save
+      respond_to do |format|
+        format.html { render :action => "success_subscribe.html.erb", :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { render :action => "failure_subscribe.html.erb", :layout => false}
+      end
+    end
+  end
+=end
+  
   def subscribe
     email = params["sub_email"]
     book_id =  params["book_id"].to_i
