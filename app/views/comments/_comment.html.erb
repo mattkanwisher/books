@@ -28,8 +28,7 @@
 				link_to_remote "Mark as Spoiler",
 				:url => { :controller => "comments", :action => "spoiler" , :id => comment.id },
 				:update => 'comment_' + comment.id.to_s + '_spoiler',
-				:class => "red"
-				%>
+				:html => { :class => "red" }				%>
 				 <span id="comment_<%=comment.id%>_spoiler"></span>
 			</span>
 

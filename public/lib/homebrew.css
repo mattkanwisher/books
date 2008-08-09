@@ -43,6 +43,10 @@ div#left_column { background: #D8F0F0; padding: 10px; position: relative; }
 	div#left_column h1 { margin: 6px 0 2px 9px; font-size: 21px; line-height: 24px; font-weight: normal; font-family: georgia; padding: 0;}
 
 	div#left_column p { margin: 0 0 2px 9px; padding: 0; }
+	
+	div#left_column p#notifications_error_note { margin: 1px 0 1px 19px; }
+	
+	div#comment_follow_success h3 { margin: 9px 0 9px 14px; }
 
 div#book_cover { margin-right: 0; padding: 7px 7px 7px 0px;}
 
