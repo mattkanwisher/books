@@ -74,7 +74,8 @@ class SearchController < ApplicationController
     
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
-    book.title = slightly_nicer_title(title)
+#    book.title = slightly_nicer_title(title)
+    book.title = title
     book.image_url = image_url
     book.author = author
     book.amz_purchase_url = page_url
