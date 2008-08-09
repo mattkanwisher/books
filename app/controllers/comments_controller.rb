@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
     end
     
     Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
+      User.TempUserEmail(notifiy.email)
       Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
     end 
     
@@ -87,7 +88,22 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @comment.spoilercount = @comment.spoilercount + 1
       @comment.save
-      render :text => @comment.spoilercount 
+      @just_marked_as_spoiler = true
+#      render :text => @comment.spoilercount 
+      render :partial => "comment"
+    rescue 
+       render :text =>"failure" 
+    end
+  end 
+
+  def unspoil
+    begin
+      @comment = Comment.find(params[:id])
+      @comment.spoilercount = @comment.spoilercount - 1
+      @comment.save
+      @just_marked_as_spoiler = false
+#      render :text => @comment.spoilercount 
+      render :partial => "comment"
     rescue 
        render :text =>"failure" 
     end

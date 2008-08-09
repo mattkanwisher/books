@@ -1,2 +1,0 @@
-class TstController < ApplicationController
-end

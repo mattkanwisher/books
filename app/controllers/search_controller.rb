@@ -69,9 +69,12 @@ class SearchController < ApplicationController
     author = book.item[0].item_attributes[0].author[0].to_s
 
 
-
+    #debugger
+begin
     image_url = book.item[0].image_sets[0].image_set.large_image.url[0].to_s
-    
+rescue
+    image_url = ""
+end
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
     book.title = slightly_nicer_title(title)

@@ -24,12 +24,21 @@
 			Recommended
 			by <strong><span id="comment_<%=comment.id%>_recommend"><%=comment.recommendcount %></span></strong> Readers</span>
 			<span class="small spoiler_link">
+			<% if @just_marked_as_spoiler == true %> 
+				<%=
+				link_to_remote "Marked as Spoiler",
+				:url => { :controller => "comments", :action => "unspoil" , :id => comment.id },
+				:update => 'comment_' + @comment.id.to_s,
+				:class => "red"
+				%>
+			<% else %>
 				<%=
 				link_to_remote "Mark as Spoiler",
 				:url => { :controller => "comments", :action => "spoiler" , :id => comment.id },
-				:update => 'comment_' + comment.id.to_s + '_spoiler',
+				:update => 'comment_' + @comment.id.to_s,
 				:class => "red"
 				%>
+			<% end %>
 				 <span id="comment_<%=comment.id%>_spoiler"></span>
 			</span>
 
