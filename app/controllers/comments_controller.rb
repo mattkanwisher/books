@@ -35,6 +35,7 @@ class CommentsController < ApplicationController
       end
     end
   end
+  
 
   def ViewBookComments
     @comments = Comment.paginate_by_book_id params[:id], :page => params[:p]
