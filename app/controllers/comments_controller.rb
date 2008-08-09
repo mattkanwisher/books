@@ -16,7 +16,11 @@ class CommentsController < ApplicationController
         puts "already saved notifications"
       end
     end
-
+    
+    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
+      Notifier.deliver_signup_thanks(notifiy.email)
+    end 
+    
     respond_to do |format|
       if @comment.save
         @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1

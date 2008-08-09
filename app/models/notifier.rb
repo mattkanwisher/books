@@ -1,5 +1,4 @@
 class Notifier < ActionMailer::Base
-  
   def signup_thanks( user )
     # Email header info MUST be added here
     recipients user
