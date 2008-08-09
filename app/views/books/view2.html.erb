@@ -23,7 +23,7 @@
 
 	<div class="container" style="padding-top: 18px; padding-bottom: 0px;">
 		
-		<div class="column span-7 first bottomend-1" id="Logo">
+		<div class="column span-7 first" id="Logo">
 			<h2 class="plain">Book Talk</h2>
 		</div>
 		
@@ -34,63 +34,73 @@
 		<% end %>
 		
 		<div class="clear"></div>
-		
-		<div class="column span-6 first" id="left_column">
-			<div class="column span-6 first last white">
-				<h1><%=@book.title %></h1>
-				<p>by <%=@book.author %></p>
-				<div class="column span-2 first" id="book_cover">
-					<img class="float_left" id="book_cover_image" src="<%=@book.image_url %>">
-				</div>
+		<div class="column first" id="left_column_wrapper">
+			<div class="column span-6 first" id="left_column">
+				<div class="column span-6 first last white">
+					<h1><%=@book.title %></h1>
+					<p>by <%=@book.author %></p>
+					<div class="column span-2 first" id="book_cover">
+						<img class="float_left" id="book_cover_image" src="<%=@book.image_url %>">
+					</div>
 			
-				<div class="column span-4 last" id="book_info">				
+					<div class="column span-4 last" id="book_info">				
 			
-					<ul>
-						<li class="clearfix small grey">Viewed <%=@book.views %> times</li>
+						<ul>
+							<li class="clearfix small">Viewed <%=@book.views %> times</li>
 					
-						<li class="clearfix">
-							<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
-							<div class="column first last" id="comment_follow_subscription" style="display: none;">
-								 <% form_remote_tag :url => '/comments/subscribe', :update  => "comment_follow_subscription" do -%>
-									<input type="hidden" id="book_id" name="book_id" value="<%=@book.id %>"
-									<input type="text" id="sub_email" name="sub_email" class="float_left info_subscribe_form grey" value="Your Email Address"></input>							 
-									<%= submit_tag   'subscribe',  :class => "float_left info_subscribe_form"  %>
-								 <% end -%>
-							</div>
-						</li>
-						<li class="clearfix">
-							<%=
-							link_to_remote "Reveal all spoiler comments",
-							:url => "/comments/ViewBookComments/" + @book.id.to_s + "?p=#{@comments.current_page}&spoilers=t"
-							%>
+							<li class="clearfix" id="email_notifications">
+								<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
+								<div class="column first last" id="comment_follow_subscription" style="display: none;">
+									 <% form_remote_tag :url => '/comments/subscribe', :update  => "comment_follow_subscription" do -%>
+										<input type="hidden" id="book_id" name="book_id" value="<%=@book.id %>"
+										<input type="text" id="sub_email" name="sub_email" class="float_left info_subscribe_form grey" value="Your Email Address"></input>							 
+										<%= submit_tag   'subscribe',  :class => "float_left info_subscribe_form"  %>
+									 <% end -%>
+								</div>
 							</li>
-						<div class="clear"></div>
-						<li class="clearfix"><a href="<%= @book.amz_purchase_url %>" id="amazon_link">at Amazon</a></li>
-						<li class="clearfix">
-							<a href="#">Email this page to a friend</a>
-							<div class="column first last" id="email_friend_form" style="display: none;">
-								<form>
-									<label class="small grey clearfix">Your Name</label>
-									<input type="text"></input>
-									<label class="small grey clearfix">Your Email</label>
-									<input type="text"></input>
-									<label class="small grey clearfix">Friends Email</label>
-									<input type="text"></input>
-									<input type="submit" value="Send Email"></input>
-								</form>
-							</div>
-						</li>
+							<li class="clearfix">
+								<%=
+								link_to_remote "Reveal all spoiler comments",
+								:url => "/comments/ViewBookComments/" + @book.id.to_s + "?p=#{@comments.current_page}&spoilers=t"
+								%>
+								</li>
+							<div class="clear"></div>
+							<li class="clearfix"><a href="<%= @book.amz_purchase_url %>" id="amazon_link">at Amazon</a></li>
+							<li class="clearfix">
+								<a href="#" onclick="$('email_friend_form').toggle(); return false">Email this page to a friend</a>
+								<div class="column span-6 pull-2 last" id="email_friend_form" style="display: none;">
+									<h4 class="plain no_bottom_margin clean">Email this page to a friend</h4>
+									<form>
+										<label class="small grey clearfix">Your Email</label>
+										<input type="text"></input>
+										<label class="small grey clearfix">Friend's Email</label>
+										<input type="text"></input>
+										<label class="small grey clearfix">Message (optional)</label>
+										<textarea class="clearfix"></textarea>
+								<!-- FORMATT - Display text of page url cut at 45 charcters plus three following periods "..." -->
+										<p class="small clean grey no_bottom_margin clearfix">www.bookreadingroom.com/13/to-kill-a....</p>
+									
+										<input type="submit" value="Send Email"></input>
+								<!-- FORMATT - After email is sent display this message for 2 seconds then hide email div (people should then be able to click on it and send another email) -->		
+										<!-- <center>
+											<h2 class="plain">Message Sent :D</h2>
+										</center> -->
+									</form>
+								</div>
+							</li>
 					
-					
-					</ul>
+						</ul>
+			
+					</div>
 			
 				</div>
-			
+				<img class="tl" src="/images/book_corner_tl.jpg" alt=""/>
+				<img class="tr" src="/images/book_corner_tr.jpg" alt=""/>
+				<img class="br" src="/images/book_corner_br.jpg" alt=""/>
+				<img class="bl" src="/images/book_corner_bl.jpg" alt=""/>
 			</div>
-					<img class="tl" src="/images/book_corner_tl.jpg" alt=""/>
-					<img class="tr" src="/images/book_corner_tr.jpg" alt=""/>
-					<img class="br" src="/images/book_corner_br.jpg" alt=""/>
-					<img class="bl" src="/images/book_corner_bl.jpg" alt=""/>
+			<div class="clear"></div>
+			<p class="small" style="text-align: center; margin-top: 18px;"><a href="/">Find a different book</a>.</p>
 		</div>
 		
 		<!-- COMMENTS -->
@@ -107,7 +117,7 @@
 			<!-- COMMENTING FORM -->	
 		
 			<div id="comment_form" class="column span-10 first clearfix">
-				<h3 class="plain">Post a thoughtful comment, people will love you for it!</h3>
+				<h3 class="plain">Post a thoughtful comment, people will love you for it.</h3>
 				<% remote_form_for(Comment.new) do |f| %>
 					<label class="float_left textfield">Your Name</label><%= f.text_field :name %>
 			 
