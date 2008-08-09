@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20080719210956) do
     t.string "image_url"
     t.string "amz_purchase_url"
     t.string "author"
+    t.string "url_key"
     t.integer "views", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"

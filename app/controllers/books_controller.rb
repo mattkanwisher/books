@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.xml
   def show
-    @book = Book.find(params[:id])
+    @book = Book.find_by_url_key(params[:id])
     @book.views = @book.views + 1
     @book.save #Not efficent !
     
@@ -40,5 +40,6 @@ class BooksController < ApplicationController
       end
     end
   end
+  
 
 end

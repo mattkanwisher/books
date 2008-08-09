@@ -12,10 +12,12 @@ class SearchController < ApplicationController
         puts "params #{params.inspect}"
         book = find_createbook( params["searchfield"])
         if( book )
-          redirect_to :controller => "books", :action => "show", :id => book.id
+          redirect_to :controller => "books", :action => "show", :id => book.url_key
           return
         end
+        puts "book#{book}"
       rescue
+        "puts error"
       end
       render :action => "no_books_found"
   end
