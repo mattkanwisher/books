@@ -16,7 +16,7 @@ test:
 #Media temple
 production:
     adapter: mysql
-    database: db41895_socialfitness
+    database: db41895_books
     username: db41895 
     password: uPJ87Sr8 
     host: internal-db.s41895.gridserver.com

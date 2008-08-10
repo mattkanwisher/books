@@ -8,17 +8,22 @@ include Amazon::AWS::Search
 
 class SearchController < ApplicationController
   def index
-      begin
+#      begin
         puts "params #{params.inspect}"
         book = find_createbook( params["searchfield"])
         if( book )
-          redirect_to :controller => "books", :action => "show", :id => book.id, :booktitle => book.url_key
+          if( book.url_key == nil)
+            book.url_key = UrlKey.create_url_key(book.title, "url_key", Book)
+            book.save
+          end
+          #redirect_to :controller => "books", :action => "show", :id => book.id, :booktitle => book.url_key
+          redirect_to "/books/" + book.id.to_s + "-" + book.url_key
           return
         end
         puts "book#{book}"
-      rescue
-        "puts error"
-      end
+#      rescue
+#        "puts error"
+#      end
       render :action => "no_books_found"
   end
 
@@ -73,7 +78,15 @@ class SearchController < ApplicationController
 begin
     image_url = book.item[0].image_sets[0].image_set.large_image.url[0].to_s
 rescue
-    image_url = ""
+    begin
+    image_url = book.item[0].image_sets[0].image_set[0].large_image.url[0].to_s
+    rescue
+      image_url = ""
+      puts "=============== FAILED TO FIND AMAZON IMAGE"
+      puts resp
+      puts "==============="  
+#      debugger
+    end
 end
     book = Book.find_by_title(title) || Book.new
     book.asin = asin
