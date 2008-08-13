@@ -17,10 +17,10 @@ class CommentsController < ApplicationController
       end
     end
     
-    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
-      User.TempUserEmail(notifiy.email)
-      Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
-    end 
+#    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
+#      User.TempUserEmail(notifiy.email)
+#      Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
+#    end 
     
     respond_to do |format|
       if @comment.save

@@ -1,12 +1,11 @@
 --- Reply ABOVE THIS LINE to respond to the following comment ---
 
 Book: <%=@book.title %>
-View Reading Room here: http://sahadeva.updatelog.com/C20452937
+View Reading Room here: http://www.bookreadingroom.com/books/<%=  @book.id.to_s + "-" + @book.url_key %>
 
-Matt said:
+<%=@comment.name %> said:
 
-  This Book is Amazing yo!
-  I wish I could write prose!
+<%=@comment.body %>
 
 
 _________________________________________________________________

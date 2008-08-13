@@ -19,4 +19,13 @@
 	<div class="column span-4 last byline">
 		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at %></i></p>
 	</div>	
+	
+	<% if @just_marked_as_spoiler == true %> 
+		<%=
+		link_to_remote "Marked as Spoiler",
+		:url => { :controller => "comments", :action => "unspoil" , :id => comment.id },
+		:update => 'comment_spoiler_' + @comment.id.to_s,
+		:html => { :class => "red" }
+		%>
+	<% end %>
 </div>

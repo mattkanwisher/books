@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20080719210956) do
     t.string "author"
     t.string "url_key"
     t.integer "views", :default => 0
+    t.integer "last_sent_notification", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
