@@ -66,12 +66,16 @@ class MyMailer
       puts "comments.last#{comments.length}"
       if( comments.length > 0)
         book.last_sent_notification = comments.last.id
+        if( book.url_key == nil)
+          book.url_key = UrlKey.create_url_key(book.title, "url_key", Book)
+          book.save
+        end
         Notification.find(:all, :conditions => {:book_id => book.id}).each do |notify|
-  #                User.TempUserEmail(notifiy.email)
+    #                User.TempUserEmail(notifiy.email)
             puts "Sending email to #{notify.email}, on #{book.title}"
             begin
               Notifier.deliver_signup_thanks(notify.email, comments, book)
-            rescue Error => e
+            rescue Exception => e
               puts "Error #{e}"
             end
         end
