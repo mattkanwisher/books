@@ -69,7 +69,11 @@ class MyMailer
         Notification.find(:all, :conditions => {:book_id => book.id}).each do |notify|
   #                User.TempUserEmail(notifiy.email)
             puts "Sending email to #{notify.email}, on #{book.title}"
-            Notifier.deliver_signup_thanks(notify.email, comments, book)
+            begin
+              Notifier.deliver_signup_thanks(notify.email, comments, book)
+            rescue Error => e
+              puts "Error #{e}"
+            end
         end
       
         book.save
