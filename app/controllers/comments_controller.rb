@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1
+        @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1,  :order => "created_at DESC"
         flash[:notice] = 'Comment was successfully created.'
         format.html { redirect_to(@comment) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   
 
   def ViewBookComments
-    @comments = Comment.paginate_by_book_id params[:id], :page => params[:p]
+    @comments = Comment.paginate_by_book_id params[:id], :page => params[:p],  :order => "created_at DESC"
     @next_page = @comments.next_page.to_s
     @prev_page = @comments.next_page.to_s
     if( params["spoilers"] != nil)

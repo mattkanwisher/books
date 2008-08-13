@@ -7,7 +7,7 @@ class BooksController < ApplicationController
     @book.save #Not efficent !
     
     @comment = Comment.new
-    @comments = Comment.paginate_by_book_id @book.id, :page => 1
+    @comments = Comment.paginate_by_book_id @book.id, :page => 1, :order => "created_at DESC"
     puts "@comments.previous_page#{@comments.previous_page}"
     puts "@comments.next_page#{@comments.next_page}"
     
