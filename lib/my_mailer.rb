@@ -61,17 +61,19 @@ class MyMailer
       else
         last_sent_notification = 0
       end 
-      Comment.find(:all, :conditions => "book_id = #{book.id} AND id > #{last_sent_notification}").each do |comment|
-          puts "comment"
-          Notification.find(:all, :conditions => {:book_id => book.id}).each do |notify|
-#                User.TempUserEmail(notifiy.email)
-                puts "Sending email to #{notify.email}, on #{book.title}"
-                Notifier.deliver_signup_thanks(notify.email, comment, book)
-          end
-          last_comment_id = comment.id
+      comments = Comment.find(:all, :conditions => "book_id = #{book.id} AND id > #{last_sent_notification}")
+      
+      puts "comments.last#{comments.length}"
+      if( comments.length > 0)
+        book.last_sent_notification = comments.last.id
+        Notification.find(:all, :conditions => {:book_id => book.id}).each do |notify|
+  #                User.TempUserEmail(notifiy.email)
+            puts "Sending email to #{notify.email}, on #{book.title}"
+            Notifier.deliver_signup_thanks(notify.email, comments, book)
+        end
+      
+        book.save
       end
-      book.last_sent_notification = last_comment_id
-      book.save
     end
   end
   

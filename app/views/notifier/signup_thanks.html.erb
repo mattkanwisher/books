@@ -3,9 +3,13 @@
 Book: <%=@book.title %>
 View Reading Room here: http://www.bookreadingroom.com/books/<%=  @book.id.to_s + "-" + @book.url_key %>
 
-<%=@comment.name %> said:
+<% @comments.each do |comment| %>
+<%=comment.name %> said:
 
-<%=@comment.body %>
+<%=comment.body %>
+
+
+<% end %>
 
 
 _________________________________________________________________

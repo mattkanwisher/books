@@ -33,3 +33,25 @@ set :deploy_to,    "/home/#{site}/containers/rails/#{application}"
 
 # update .htaccess rules after new version is deployed
 after "deploy:symlink".to_sym, "mt:generate_htaccess".to_sym
+
+namespace(:deploy) do  
+  
+  desc "Redefine migrate to work in development mode"
+  task :migrate, :roles => :app do
+    run "cd #{release_path} && rake db:auto:migrate"
+  end
+
+  desc "Long deploy will throw up the maintenance.html page and run migrations 
+        then it restarts and enables the site again."
+  task :long do
+    transaction do
+      update_code
+      #web.disable 
+      symlink
+      migrate
+    end
+  
+    restart
+    #web.enable
+  end
+end

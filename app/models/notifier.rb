@@ -1,13 +1,12 @@
 class Notifier < ActionMailer::Base
-  def signup_thanks( user, comment, book )
+  def signup_thanks( user, comments, book )
     # Email header info MUST be added here
     recipients user
     from  "serveradmin@bookreadingroom.com"
-    subject "New comment on book -"+ book.title
+    subject "New comment(s) on book -"+ book.title
 
-    puts "comment#{comment.inspect}"
     # Email body substitutions go here
-    body :user=> user, :book=>book, :comment=>comment
+    body :user=> user, :book=>book, :comments=>comments
 
   end
   
