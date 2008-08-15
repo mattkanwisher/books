@@ -9,12 +9,11 @@ class CommentsController < ApplicationController
     if( self.current_user == nil)
       u = User.find_by_email(@comment.email)
       u = User.Createtempuser(@comment.email) unless u
+      self.current_user = u
     elsif( self.current_user.email == nil)
       u = self.current_user
       u.email = @comment.email
       u.save
-    else
-      u = self.current_user
     end
     set_auth
 
