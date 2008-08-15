@@ -14,6 +14,8 @@ class BooksController < ApplicationController
     @next_page = @comments.next_page.to_i
     @prev_page = @comments.previous_page.to_i
 
+    puts "current_user#{current_user}--"
+
     respond_to do |format|
       format.html { render :action => "view2.html.erb", :layout => false} # view.html.erb
       format.xml  { render :xml => @book }

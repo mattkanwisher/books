@@ -1,1 +1,3 @@
-page.replace 'comments',{:partial=>'comments2', :object=>@comments}
+if( @comments.length > 0)
+  page.replace 'comments',{:partial=>'comments2', :object=>@comments}
+end

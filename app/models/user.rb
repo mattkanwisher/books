@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
-  validates_length_of       :password, :within => 4..40, :if => :password_required?
+  validates_length_of       :password, :within => 1..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
+  validates_length_of       :login,    :within => 1..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
@@ -17,8 +17,15 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
   
-  def self.TempUserEmail(email)
-#    u 
+  def self.Createtempuser(email)
+    u = User.create
+    u.email = email
+    u.login = "T"
+    u.password = "T"
+    u.password_confirmation = "T"
+    u.save
+    puts "u -#{u.errors.inspect}"
+    u 
   end
   
 

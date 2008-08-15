@@ -17,10 +17,22 @@ class CommentsController < ApplicationController
       end
     end
     
+    u = User.find_by_email(@comment.email)
+    u = User.Createtempuser(@comment.email) unless u
+    puts "USER-#{u.id}"
+    if(u)
+        current_user = u
+        current_user.remember_me
+        puts "current_user.remember_token #{current_user.remember_token}"
+        cookies[:auth_token] = { :value => current_user.remember_token , :expires => current_user.remember_token_expires_at }
+    end
+
 #    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
 #      User.TempUserEmail(notifiy.email)
 #      Notifier.deliver_signup_thanks(notifiy.email, @comment, @comment.book)
 #    end 
+    puts "current_user.id#{current_user.id}-"
+    @comment.user_id = current_user.id unless current_user == nil
     
     respond_to do |format|
       if @comment.save
@@ -52,7 +64,9 @@ class CommentsController < ApplicationController
 
   def RenderComment
     @comment = Comment.find(params[:id])
-    render :partial => "comment"
+    render :update do |page|
+      page.replace 'comment_spoiler_' + @comment.id.to_s, :partial => 'comment'		    
+		end
    end 
   
   # PUT /comments/1
@@ -75,23 +89,64 @@ class CommentsController < ApplicationController
   def recommend 
     begin
       @comment = Comment.find(params[:id])
-      @comment.recommendcount = @comment.recommendcount + 1
-      @comment.save
+      r = nil
+      current_userid = current_user.id 
+      if(current_user != nil)
+        r = Recommend.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      else
+       current_user = User.Createtempuser(nil)
+      end
+      if(!r)
+        
+        @comment.recommendcount = @comment.recommendcount + 1
+        @comment.save
+        
+        rec = Recommend.new()
+        rec.book_id = @comment.book_id
+        rec.comment_id = @comment.id
+        rec.user_id = current_userid 
+        rec.save
+      end
       render :text => @comment.recommendcount
-    rescue 
+    rescue Exception => e
+       puts e
        render :text =>"failure" 
     end
   end 
   
   def spoiler
     begin
+      puts "current_user.id #{current_user.inspect}"
       @comment = Comment.find(params[:id])
-      @comment.spoilercount = @comment.spoilercount + 1
-      @comment.save
+      s = nil
+      current_userid = current_user.id 
+      if(current_user != nil)
+        s = Spoiler.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      else
+       current_user = User.Createtempuser(nil)
+      end
+      if(!s)      
+        if( @comment.user_id == current_userid) 
+          @comment.spoilercount = @comment.spoilercount + 3
+        else
+          @comment.spoilercount = @comment.spoilercount + 1
+        end
+        @comment.save
+        
+        sop = Spoiler.new()
+        sop.book_id = @comment.book_id
+        sop.comment_id = @comment.id
+        sop.user_id = current_userid 
+        sop.save
+      end
+
       @just_marked_as_spoiler = true
-#      render :text => @comment.spoilercount 
-      render :partial => "spoiler"
-    rescue 
+ #     render :text => @comment.spoilercount 
+      render :update do |page|        
+       page.replace 'comment_'  + @comment.id.to_s, :partial => 'spoiler'		    
+    	end
+    rescue Exception => e
+       puts e
        render :text =>"failure" 
     end
   end 
@@ -99,12 +154,29 @@ class CommentsController < ApplicationController
   def unspoil
     begin
       @comment = Comment.find(params[:id])
-      @comment.spoilercount = @comment.spoilercount - 1
-      @comment.save
+      current_userid = current_user.id 
+      s = nil
+      if(current_user != nil)
+        s = Spoiler.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      end
+      if(s)
+        if( @comment.user_id == current_userid) 
+          @comment.spoilercount = @comment.spoilercount - 3
+        else
+          @comment.spoilercount = @comment.spoilercount - 1
+        end
+        @comment.save
+        Spoiler.delete(s.id)
+      end
       @just_marked_as_spoiler = false
 #      render :text => @comment.spoilercount 
-      render :partial => "spoiler"
-    rescue 
+      puts "done"
+
+      render :update do |page|        
+       page.replace 'comment_spoiler_'  + @comment.id.to_s, :partial => 'comment'		    
+    	end
+    rescue Exception => e
+       puts e
        render :text =>"failure" 
     end
   end 

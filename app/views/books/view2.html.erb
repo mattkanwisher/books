@@ -49,7 +49,7 @@
 							<li class="clearfix small">Viewed <%=@book.views %> times</li>
 					
 							<li class="clearfix" id="email_notifications">
-								<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
+								<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return true"></input> Notify me of new comments</label>
 								<div class="column first last" id="comment_follow_subscription" style="display: none;">
 									<p class="no_bottom_margin" id="notifications_error_note" style="display: none;"><strong class="red">That's not a real email!</strong></p>
 									
@@ -160,9 +160,7 @@
 	
 </body>
 
-<script type="text/javascript" src="/assets/js/common.js"></script>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js?load=effects"></script>
-<script type="text/javascript" src="/assets/js/validation.js"></script>
 </html>

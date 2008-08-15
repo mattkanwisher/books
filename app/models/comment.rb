@@ -4,6 +4,6 @@ class Comment < ActiveRecord::Base
                  :foreign_key => "book_id"
 
    cattr_reader :per_page
-   @@per_page = 10
+   @@per_page = 20
 
 end
