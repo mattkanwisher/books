@@ -6,7 +6,9 @@ set :webpath,      "bookreadingroom.com"
 set :domain,       "s41895.gridserver.com"
 set :user,          "serveradmin@#{domain}"
 
-#set deploy_via, :remote_cache
+ssh_options[:forward_agent] = true
+set :git_shallow_clone, 1
+set deploy_via, :remote_cache
 set :repository,  "git@github.com:mattcampbell/books.git"
 
 # If you aren't using Subversion to manage your source code, specify

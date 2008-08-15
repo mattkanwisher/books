@@ -16,16 +16,18 @@ class CommentsController < ApplicationController
         puts "already saved notifications"
       end
     end
-    
-    u = User.find_by_email(@comment.email)
-    u = User.Createtempuser(@comment.email) unless u
-    puts "USER-#{u.id}"
-    if(u)
-        current_user = u
-        current_user.remember_me
-        puts "current_user.remember_token #{current_user.remember_token}"
-        cookies[:auth_token] = { :value => current_user.remember_token , :expires => current_user.remember_token_expires_at }
+    u = nil
+    if( self.current_user == nil)
+      u = User.find_by_email(@comment.email)
+      u = User.Createtempuser(@comment.email) unless u
+    elsif( self.current_user.email == nil)
+      u = self.current_user
+      u.email = @comment.email
+      u.save
+    else
+      u = self.current_user
     end
+    set_auth
 
 #    Notification.find(:all, :conditions => {:book_id => @comment.book_id}).each do |notifiy|
 #      User.TempUserEmail(notifiy.email)
@@ -90,11 +92,11 @@ class CommentsController < ApplicationController
     begin
       @comment = Comment.find(params[:id])
       r = nil
-      current_userid = current_user.id 
-      if(current_user != nil)
-        r = Recommend.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      if(self.current_user != nil)
+        r = Recommend.find(:first, :conditions => {:user_id => self.current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
       else
-       current_user = User.Createtempuser(nil)
+       self.current_user = User.Createtempuser(nil)
+       set_auth
       end
       if(!r)
         
@@ -104,7 +106,7 @@ class CommentsController < ApplicationController
         rec = Recommend.new()
         rec.book_id = @comment.book_id
         rec.comment_id = @comment.id
-        rec.user_id = current_userid 
+        rec.user_id = self.current_user.id 
         rec.save
       end
       render :text => @comment.recommendcount
@@ -116,17 +118,17 @@ class CommentsController < ApplicationController
   
   def spoiler
     begin
-      puts "current_user.id #{current_user.inspect}"
+      puts "current_user.id #{self.current_user.inspect}"
       @comment = Comment.find(params[:id])
       s = nil
-      current_userid = current_user.id 
-      if(current_user != nil)
-        s = Spoiler.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      if(self.current_user != nil)
+        s = Spoiler.find(:first, :conditions => {:user_id => self.current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
       else
-       current_user = User.Createtempuser(nil)
+       self.current_user = User.Createtempuser(nil)
+       set_auth
       end
       if(!s)      
-        if( @comment.user_id == current_userid) 
+        if( @comment.user_id == self.current_user.id) 
           @comment.spoilercount = @comment.spoilercount + 3
         else
           @comment.spoilercount = @comment.spoilercount + 1
@@ -136,7 +138,7 @@ class CommentsController < ApplicationController
         sop = Spoiler.new()
         sop.book_id = @comment.book_id
         sop.comment_id = @comment.id
-        sop.user_id = current_userid 
+        sop.user_id = self.current_user.id 
         sop.save
       end
 
@@ -154,13 +156,15 @@ class CommentsController < ApplicationController
   def unspoil
     begin
       @comment = Comment.find(params[:id])
-      current_userid = current_user.id 
       s = nil
       if(current_user != nil)
-        s = Spoiler.find(:first, :conditions => {:user_id => current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+        s = Spoiler.find(:first, :conditions => {:user_id => self.current_user.id, :book_id => @comment.book_id, :comment_id => @comment.id})
+      else
+       self.current_user = User.Createtempuser(nil)
+       set_auth
       end
       if(s)
-        if( @comment.user_id == current_userid) 
+        if( @comment.user_id == self.current_user.id) 
           @comment.spoilercount = @comment.spoilercount - 3
         else
           @comment.spoilercount = @comment.spoilercount - 1
@@ -228,5 +232,12 @@ class CommentsController < ApplicationController
         format.html { render :action => "failure_subscribe.html.erb", :layout => false}
       end
     end
+  end
+  
+  private
+  def set_auth
+    self.current_user.remember_me
+    puts "current_user.remember_token #{current_user.remember_token}"
+    cookies[:auth_token] = { :value => current_user.remember_token , :expires => current_user.remember_token_expires_at }
   end
 end

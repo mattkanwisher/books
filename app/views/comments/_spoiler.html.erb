@@ -16,7 +16,7 @@
 		by <strong><%=@comment.recommendcount %></strong> Readers</span>
 	</div>
 	<div class="column span-4 last byline">
-		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at %></i></p>
+		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at.strftime("%I:%M%p, %B %e %Y").gsub(/0(\d\D)/, ' \1')  %></i></p>
 	</div>	
 	
 	<% if @just_marked_as_spoiler == true %> 
