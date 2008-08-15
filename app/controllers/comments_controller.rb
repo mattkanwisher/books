@@ -5,17 +5,6 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
 
-    if(params["commenting_subscribe_checkbox"] == "on")
-      noti_found =  Notification.find(:first, :conditions => { :email => @comment.email, :book_id  => @comment.book_id  } )
-      if( noti_found == nil  )
-        not_email = Notification.new()
-        not_email.email = @comment.email
-        not_email.book_id = @comment.book_id
-        not_email.save
-      else
-        puts "already saved notifications"
-      end
-    end
     u = nil
     if( self.current_user == nil)
       u = User.find_by_email(@comment.email)
@@ -38,12 +27,28 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
+        puts "Comments saved !"
+        if(params["commenting_subscribe_checkbox"] == "on")
+          noti_found =  Notification.find(:first, :conditions => { :email => @comment.email, :book_id  => @comment.book_id  } )
+          if( noti_found == nil  )
+            not_email = Notification.new()
+            not_email.email = @comment.email
+            not_email.book_id = @comment.book_id
+            not_email.save
+          else
+            puts "already saved notifications"
+          end
+        end
+            
+      
         @comments = Comment.paginate_by_book_id @comment.book_id, :page => 1,  :order => "created_at DESC"
         flash[:notice] = 'Comment was successfully created.'
         format.html { redirect_to(@comment) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
         format.js{ render :action=>'create' }
       else
+        puts "Comments failed to save! #{@comment.errors.inspect}"
+        @book = Book.find(@comment.book_id)
         format.html { render :action => "new" }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
         format.js{ render :action=>'create_error' }
@@ -74,7 +79,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.xml
   def update
-    @comment = Comment.find(params[:id])
+=begin    @comment = Comment.find(params[:id])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
@@ -86,6 +91,8 @@ class CommentsController < ApplicationController
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
+=end
+    create
   end
 
   def recommend 
@@ -215,7 +222,7 @@ class CommentsController < ApplicationController
   def subscribe
     email = params["sub_email"]
     book_id =  params["book_id"].to_i
-    if(email.include?("@"))
+    if(email.include?("@") && email.include?("."))
       noti_found =  Notification.find(:first, :conditions => { :email => email, :book_id  => book_id  } )
       if( noti_found == nil  ) #no dupes
         not_email = Notification.new()
@@ -229,6 +236,7 @@ class CommentsController < ApplicationController
       end
     else
       respond_to do |format|
+        @book = Book.find(book_id)
         format.html { render :action => "failure_subscribe.html.erb", :layout => false}
       end
     end
