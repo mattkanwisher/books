@@ -74,7 +74,9 @@ class MyMailer
     #                User.TempUserEmail(notifiy.email)
             puts "Sending email to #{notify.email}, on #{book.title}"
             begin
-              Notifier.deliver_signup_thanks(notify.email, comments, book)
+              u = User.find_by_email(notify.email)
+              u = User.Createtempuser(notify.email) unless u
+              Notifier.deliver_signup_thanks(u, comments, book)
             rescue Exception => e
               puts "Error #{e}"
             end
