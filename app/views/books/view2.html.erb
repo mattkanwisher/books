@@ -49,7 +49,7 @@
 							<li class="clearfix small">Viewed <%=@book.views %> times</li>
 					
 							<li class="clearfix" id="email_notifications">
-								<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return false"></input> Notify me of new comments</label>
+								<label class="float_left small clearfix"><input type="checkbox" class="float_left" id="info_subscribe_checkbox" onclick="$('comment_follow_subscription').toggle(); return true"></input> Notify me of new comments</label>
 								<div class="column first last" id="comment_follow_subscription" style="display: none;">
 									<p class="no_bottom_margin" id="notifications_error_note" style="display: none;"><strong class="red">That's not a real email!</strong></p>
 									
@@ -72,26 +72,20 @@
 							<div class="clear"></div>
 							<li class="clearfix"><a href="<%= @book.amz_purchase_url %>" id="amazon_link">at Amazon</a></li>
 							<li class="clearfix">
-								<a href="#" onclick="$('email_friend_form').toggle(); return false">Email this page to a friend</a>
-								<div class="column span-6 pull-2 last" id="email_friend_form" style="display: none;">
-									<h4 class="plain no_bottom_margin clean">Email this page to a friend</h4>
-									<form>
-										<label class="small grey clearfix">Your Email</label>
-										<input type="text"></input>
-										<label class="small grey clearfix">Friend's Email</label>
-										<input type="text"></input>
-										<label class="small grey clearfix">Message (optional)</label>
-										<textarea class="clearfix"></textarea>
-								<!-- FORMATT - Display text of page url cut at 45 charcters plus three following periods "..." -->
-										<p class="small clean grey no_bottom_margin clearfix">www.bookreadingroom.com/13/to-kill-a....</p>
-									
-										<input type="submit" value="Send Email"></input>
-								<!-- FORMATT - After email is sent display this message for 2 seconds then hide email div (people should then be able to click on it and send another email) -->		
-										<!-- <center>
-											<h2 class="plain">Message Sent :D</h2>
-										</center> -->
-									</form>
-								</div>
+								
+								
+								<!-- ADDTHIS BUTTON BEGIN -->
+								<script type="text/javascript">
+								addthis_pub             = 'bookreadingroom'; 
+								addthis_logo            = 'http://www.addthis.com/images/yourlogo.png';
+								addthis_logo_background = 'EFEFFF';
+								addthis_logo_color      = '666699';
+								addthis_brand           = 'Book Talk';
+								addthis_options         = 'favorites, email, digg, delicious, myspace, facebook, google, live, more';
+								</script>
+								<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-share.gif" width="125" height="16" border="0" alt="" /></a>
+								<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+								<!-- ADDTHIS BUTTON END -->
 							</li>
 					
 						</ul>
@@ -120,29 +114,8 @@
 			<% end %>
 
 			<!-- COMMENTING FORM -->	
-		
-			<div id="comment_form" class="column span-10 first clearfix">
-				<h3 class="plain">Post a thoughtful comment, people will love you for it.</h3>
-				<% remote_form_for(Comment.new) do |f| %>
-					<label class="float_left textfield">Your Name</label><%= f.text_field :name %>
-			 
-					<div class="clear"></div>
-					<label class="float_left textfield">Your Email</label><%= f.text_field :email %>
-					<div class="clear"></div>
-					<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
-					<div class="clear"></div>
-					<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox" name="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
-					<div class="clear"></div>
-					<%= f.hidden_field :book_id, :value => @book.id%>
-
-					<%= submit_tag 'Post Comment', :class => "submit" %>
-				
-				<% end %>
-				<img class="tl" src="/images/yellow_corner_tl.jpg" alt=""/>
-				<img class="tr" src="/images/yellow_corner_tr.jpg" alt=""/>
-				<img class="br" src="/images/yellow_corner_br.jpg" alt=""/>
-				<img class="bl" src="/images/yellow_corner_bl.jpg" alt=""/>
-			</div>
+			<%= render :partial => "comments/comment_form", :object => @comments %>
+			
 		</div>
 		<div id="footer" class="column span-13 prepend-7">
 			<p class="small grey"><strong><a href="/">BookReadinRoom</a></strong> was created by <a href="http://sahadeva.com/">Sahadeva Hammari</a> and Matt Campbell over a few weekends at a Manhattan cafe.<br/>We hope you like it. Please email any feedback to <a href="mailto:talk@readingrooms.com">talk@readingrooms.com</a>. All rights are reserved.</p>
@@ -165,9 +138,7 @@
 	
 </body>
 
-<script type="text/javascript" src="/assets/js/common.js"></script>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js?load=effects"></script>
-<script type="text/javascript" src="/assets/js/validation.js"></script>
 </html>

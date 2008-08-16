@@ -4,8 +4,7 @@
 		<div class="column span-9 first last comment spoiler_comment" id="comment_ID">
 			<p>This comment has been marked as a spoiler.<br/><%=
 			link_to_remote "Read it anyway",
-			:url => { :controller => "comments", :action => "RenderComment" , :id => @comment.id },
-			:update => 'comment_spoiler_' + @comment.id.to_s 
+			:url => { :controller => "comments", :action => "RenderComment" , :id => @comment.id }
 			%>?</p>
 			<img class="tl" src="/images/brown_corner_tl.jpg" alt=""/>
 			<img class="tr" src="/images/brown_corner_tr.jpg" alt=""/>
@@ -17,6 +16,14 @@
 		by <strong><%=@comment.recommendcount %></strong> Readers</span>
 	</div>
 	<div class="column span-4 last byline">
-		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at %></i></p>
+		<p>by Kareem<br/><span class="small grey"><i><%=@comment.created_at.strftime("%I:%M%p, %B %e %Y").gsub(/0(\d\D)/, ' \1')  %></i></p>
 	</div>	
+	
+	<% if @just_marked_as_spoiler == true %> 
+		<%=
+		link_to_remote "Marked as Spoiler",
+		:url => { :controller => "comments", :action => "unspoil" , :id => @comment.id },
+		:html => { :class => "red" }
+		%>
+	<% end %>
 </div>

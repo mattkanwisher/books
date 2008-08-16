@@ -1,1 +1,8 @@
-invalid email
+<p class="no_bottom_margin" id="notifications_error_note" style="display: none;"><strong class="red">That's not a real email!</strong></p>
+
+ <% form_remote_tag :url => '/comments/subscribe', :update  => "comment_follow_subscription" do -%>
+	<input type="hidden" id="book_id" name="book_id" value="<%=@book.id %>"
+	<input type="text" id="sub_email" name="sub_email" class="float_left info_subscribe_form grey" value="Your Email Address"></input>							 
+	<%= submit_tag   'subscribe',  :class => "float_left info_subscribe_form"  %> (ERROR)
+ <% end -%>
+</p>

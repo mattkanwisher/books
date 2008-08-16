@@ -1,0 +1,39 @@
+<div id="comment_form" class="column span-10 first clearfix">
+	<h3 class="plain">Post a thoughtful comment, people will love you for it.</h3>
+	<% remote_form_for(@comment) do |f| %>
+		<%if @comment.errors[:name] %>
+			<label for="comment_name"  class="float_left textfield" style="color:red">Your Name</label><%= f.text_field :name %>
+ 		<%else %>
+			<label for="comment_name"  class="float_left textfield">Your Name</label><%= f.text_field :name %>
+		<%end %>
+		<div class="clear"></div>
+		
+		
+		<%if @comment.errors[:email] %>
+			<label class="float_left textfield" for="comment_email" style="color:red">Your Email</label><%= f.text_field :email %>
+ 		<%else %>
+			<label class="float_left textfield" for="comment_email">Your Email</label><%= f.text_field :email %>
+		<%end %>
+		
+		
+		<div class="clear"></div>
+		<%if @comment.errors[:body] %>
+			<label class="float_left" style="color:red">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
+ 		<%else %>
+			<label class="float_left">Your Comment</label><%= f.text_area :body,  :rows => 15 %>
+		<%end %>
+
+
+		<div class="clear"></div>
+		<label class="float_left small clearfix" id="commenting_subscription_label"><input type="checkbox" class="float_left" id="commenting_subscribe_checkbox" name="commenting_subscribe_checkbox"></input> Notify me of new comments.</label>
+		<div class="clear"></div>
+		<%= f.hidden_field :book_id, :value => @book.id%>
+		
+		<%= submit_tag 'Post Comment', :class => "submit" %>
+	
+	<% end %>
+	<img class="tl" src="/images/yellow_corner_tl.jpg" alt=""/>
+	<img class="tr" src="/images/yellow_corner_tr.jpg" alt=""/>
+	<img class="br" src="/images/yellow_corner_br.jpg" alt=""/>
+	<img class="bl" src="/images/yellow_corner_bl.jpg" alt=""/>
+</div>

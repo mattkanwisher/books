@@ -1,12 +1,13 @@
 --- Reply ABOVE THIS LINE to respond to the following comment ---
 
 Book: <%=@book.title %>
-View Reading Room here: http://sahadeva.updatelog.com/C20452937
+View Reading Room here: http://www.bookreadingroom.com/books/<%=  @book.id.to_s + "-" + @book.url_key %>
 
-Matt said:
+<% @comments.each do |comment| %>
+<% if comment.email != @user.email %><%=comment.name %> said:
+<% if comment.spoilercount < 3 %><%=comment.body %><%else%>*SPOILER*<%end%>
 
-  This Book is Amazing yo!
-  I wish I could write prose!
+<% end %><% end %>
 
 
 _________________________________________________________________
@@ -14,8 +15,8 @@ _________________________________________________________________
 You received this email because you subscribed to new comments 
 associated with the book room above. If you wish to unsubscribe 
 to new comments click the following link:
-http://bookreadingroom.com/unsub/C20452937
+http://bookreadingroom.com/unsubscribe/<%=@user.id%>/<%=@book.id%>
 
 To unsubscribe to all BookReadingRoom.com comment notifications 
 click here:
-http://bookreadingroom.com/unsub/C20452937sdfasdf
+http://bookreadingroom.com/unsubscribe/all/<%=@user.id%>

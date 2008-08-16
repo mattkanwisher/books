@@ -1,0 +1,1 @@
+page.replace 'comment_form',{:partial=>'comment_form'}

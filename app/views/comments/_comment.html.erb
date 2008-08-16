@@ -35,7 +35,6 @@
 				<%=
 				link_to_remote "Mark as Spoiler",
 				:url => { :controller => "comments", :action => "spoiler" , :id => comment.id },
-				:update => 'comment_' + @comment.id.to_s,
 				:html => { :class => "red" }				
 				%>
 			<% end %>
@@ -44,7 +43,7 @@
 
 	</div>
 	<div class="column span-4 last byline">
-		<p>by <%=comment.name %><br/><span class="small grey"><i><%=comment.created_at %></i></p>
+		<p>by <%=comment.name %><br/><span class="small grey"><i><%=comment.created_at.strftime("%I:%M%p, %B %e %Y").gsub(/0(\d\D)/, ' \1') %></i></p>
 	
 	</div>	
 </div>

@@ -39,7 +39,8 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
-  map.connect 'books/:id/:booktitle', :action => 'show', :controller => 'books'
+  map.connect 'books/:id-:booktitle', :action => 'show', :controller => 'books'
+  map.connect 'books/:id', :action => 'show', :controller => 'books'
   map.connect 'unsubscribe/all/:id', :action => 'all', :controller => 'unsubscribe'
   map.connect 'unsubscribe/:id/:id2', :action => 'index', :controller => 'unsubscribe'
   
