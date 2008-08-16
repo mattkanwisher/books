@@ -154,8 +154,13 @@
 	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 	</script>
 	<script type="text/javascript">
-	var pageTracker = _gat._getTracker("UA-75045-4");
-	pageTracker._trackPageview();
+	var firstTracker = _gat._getTracker("UA-75045-4");
+	firstTracker._initData();
+	firstTracker._trackPageview();
+	
+	var secondTracker = _gat._getTracker("UA-5278391-2");
+       secondTracker._initData();
+       secondTracker._trackPageview("/3928194447/goal");
 	</script>
 	
 </body>

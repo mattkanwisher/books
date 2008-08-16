@@ -4,7 +4,19 @@
 
 <head>
 	
-	<title>Book Talk</title>
+	<script>
+	function utmx_section(){}function utmx(){}
+	(function(){var k='3928194447',d=document,l=d.location,c=d.cookie;function f(n){
+	if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.indexOf(';',i);return c.substring(i+n.
+	length+1,j<0?c.length:j)}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;
+	d.write('<sc'+'ript src="'+
+	'http'+(l.protocol=='https:'?'s://ssl':'://www')+'.google-analytics.com'
+	+'/siteopt.js?v=1&utmxkey='+k+'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='
+	+new Date().valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+	'" type="text/javascript" charset="utf-8"></sc'+'ript>')})();
+	</script>
+	
+	<title>Book Reading Rooms</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	
 	<meta name="keywords" content="books">	
@@ -16,7 +28,6 @@
 	<link rel="stylesheet" type="text/css" href="/lib/grid.css" />
 	<link rel="stylesheet" type="text/css" href="/lib/typography.css" />
 	<link rel="stylesheet" type="text/css" href="/lib/homebrew.css" />
-
 
 </head>
 
@@ -30,7 +41,7 @@
 						<h1 class="plain">What are you reading?</h1>
 						
 						<input type="text" id="index_search_field" name="searchfield" value=""></input><br/>
-						<input type="submit" value=" Enter Reading Room " id="search_button"></input>
+						<script>utmx_section("Search Button Name")</script><input type="submit" value=" Enter Reading Room " id="search_button"></input></noscript>
 					</center>
 				</form>
 					<img class="tl" src="images/book_corner_tl.jpg" alt=""/>
@@ -51,9 +62,15 @@
 	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 	</script>
 	<script type="text/javascript">
-	var pageTracker = _gat._getTracker("UA-75045-4");
-	pageTracker._trackPageview();
+	var firstTracker = _gat._getTracker("UA-75045-4");
+	firstTracker._initData();
+	firstTracker._trackPageview();
+	
+	var secondTracker = _gat._getTracker("UA-5278391-2");
+       secondTracker._initData();
+       secondTracker._trackPageview("/3928194447/test");
 	</script>
+	
 	
 </body>
 </html>
