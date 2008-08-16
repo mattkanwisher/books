@@ -72,26 +72,20 @@
 							<div class="clear"></div>
 							<li class="clearfix"><a href="<%= @book.amz_purchase_url %>" id="amazon_link">at Amazon</a></li>
 							<li class="clearfix">
-								<a href="#" onclick="$('email_friend_form').toggle(); return false">Email this page to a friend</a>
-								<div class="column span-6 pull-2 last" id="email_friend_form" style="display: none;">
-									<h4 class="plain no_bottom_margin clean">Email this page to a friend</h4>
-									<form>
-										<label class="small grey clearfix">Your Email</label>
-										<input type="text"></input>
-										<label class="small grey clearfix">Friend's Email</label>
-										<input type="text"></input>
-										<label class="small grey clearfix">Message (optional)</label>
-										<textarea class="clearfix"></textarea>
-								<!-- FORMATT - Display text of page url cut at 45 charcters plus three following periods "..." -->
-										<p class="small clean grey no_bottom_margin clearfix">www.bookreadingroom.com/13/to-kill-a....</p>
-									
-										<input type="submit" value="Send Email"></input>
-								<!-- FORMATT - After email is sent display this message for 2 seconds then hide email div (people should then be able to click on it and send another email) -->		
-										<!-- <center>
-											<h2 class="plain">Message Sent :D</h2>
-										</center> -->
-									</form>
-								</div>
+								
+								
+								<!-- ADDTHIS BUTTON BEGIN -->
+								<script type="text/javascript">
+								addthis_pub             = 'bookreadingroom'; 
+								addthis_logo            = 'http://www.addthis.com/images/yourlogo.png';
+								addthis_logo_background = 'EFEFFF';
+								addthis_logo_color      = '666699';
+								addthis_brand           = 'Book Talk';
+								addthis_options         = 'favorites, email, digg, delicious, myspace, facebook, google, live, more';
+								</script>
+								<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-share.gif" width="125" height="16" border="0" alt="" /></a>
+								<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+								<!-- ADDTHIS BUTTON END -->
 							</li>
 					
 						</ul>
