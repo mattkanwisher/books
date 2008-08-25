@@ -2,7 +2,7 @@ require "mt-capistrano"
 
 set :site,         "41895"
 set :application,  "book2"
-set :webpath,      "socialreads.com"
+set :webpath,      "bookreadingroom.com"
 set :domain,       "s41895.gridserver.com"
 set :user,          "serveradmin@#{domain}"
 
