@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20080719210956) do
   
   create_table "comments", :force => true do |t|
     t.integer   "book_id"
-    t.string   "body"
+    t.text   "body"
     t.string   "name"
     t.string   "email"  
     t.integer  "user_id"
